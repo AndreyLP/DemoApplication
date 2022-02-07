@@ -1,0 +1,25 @@
+﻿@model DemoApplication.Models.ViewModels.UserViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="alert alert-success">
+    <h1>Спасибо, @Model.FullName, за регистрацию!</h1>
+    <a class="nav-link" asp-action="ListUser">Посмотреть зарегистрировавшихся</a>
+</div>
+
+@*
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thanks</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    </head>
+    <body class="text-center">
+    <p>
+    <h1>Спасибо, @Model.Login, за регистрацию!</h1>
+    </p>
+    <a class="nav-link" asp-action="ListUser">Посмотреть</a> список зарегистрировавшихся.
+    </body>
+    </html>*@
