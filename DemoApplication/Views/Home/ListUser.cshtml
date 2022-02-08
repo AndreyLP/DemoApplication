@@ -18,15 +18,15 @@
             <td class="text-right">@item.UserID</td>
             <td class="text-center">@item.Login</td>
             <td class="text-center">@item.FullName</td>
-            <td class="text-center">@item.BirthDate</td>
+            <td class="text-center">@item.BirthDate?.ToString("dd.MM.yyyy")</td>
             <td class="text-center">@item.Email</td>
             <td class="text-center">@item.Phone</td>
             <td class="text-center">
                 <form asp-action="Delete" method="post">
-                    @*<a asp-action="RegistrationForm" class="btn btn-sm btn-warning"
+                    <a asp-action="EditUser" class="btn btn-sm btn-warning"
                    asp-route-userID="@item.UserID">
                         Редактировать
-                    </a>*@
+                    </a>
                     <input type="hidden" name="UserID" value="@item.UserID" />
                     <button type="submit" class="btn btn-danger btn-sm">
                         Удалить

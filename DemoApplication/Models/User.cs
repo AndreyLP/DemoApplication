@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+﻿using System;
 
 namespace DemoApplication.Models
 {

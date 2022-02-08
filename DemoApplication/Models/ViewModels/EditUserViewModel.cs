@@ -4,32 +4,25 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DemoApplication.Models.ViewModels
 {
-    public class UserViewModel
+    public class EditUserViewModel
     {
-        public UserViewModel()
+        public EditUserViewModel()
         {
             Errors = new List<string>();
         }
-
-        public UserViewModel(User userModel)
+        public EditUserViewModel(User userModel)
         {
             UserID = userModel.UserID;
             Login = userModel.Login;
-            Password = userModel.Password;
             FullName = userModel.FullName;
             BirthDate = userModel.BirthDate;
             Email = userModel.Email;
             Phone = userModel.Phone;
             Errors = new List<string>();
         }
-
         public int UserID { get; set; }
         [Required(ErrorMessage = "Введите логин")]
         public string Login { get; set; }
-        [Required(ErrorMessage = "Введите пароль")]
-        public string Password { get; set; }
-        [Required(ErrorMessage = "Введите пароль ещё раз")]
-        public string ConfirmPassword { get; set; }
         [Required(ErrorMessage = "Введите ФИО")]
         public string FullName { get; set; }
         [Required(ErrorMessage = "Введите дату рождения")]

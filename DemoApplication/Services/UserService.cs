@@ -30,7 +30,11 @@ namespace DemoApplication.Services
             user.Password = Encoding.UTF8.GetString(binaryHash);
             return _userRepository.CreateUser(user);
         }
+        public User UpdateUser(User user)
+        {
+            if (user.BirthDate >= System.DateTime.Now)
+                throw new ValidationException("Дата рождения из будущего");
+            return _userRepository.UpdateUser(user);
+        }
     }
-
-
 }

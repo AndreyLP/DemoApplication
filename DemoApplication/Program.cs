@@ -15,18 +15,8 @@ namespace DemoApplication
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
-            //CreateHostBuilder(args).Build().Run();
         }
-
-        //public static IHostBuilder CreateHostBuilder(string[] args) =>
-        //    Host.CreateDefaultBuilder(args)
-        //        .ConfigureWebHostDefaults(webBuilder =>
-        //        {
-        //            webBuilder.UseStartup<Startup>()
-        //            .UseDefaultServiceProvider(options => options.ValidateScopes = false).Build();
-        //        });
-        public static IWebHost BuildWebHost(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
         .UseStartup<Startup>()
         .UseDefaultServiceProvider(options => options.ValidateScopes = false)
         .Build();

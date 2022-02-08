@@ -1,12 +1,7 @@
 ﻿using DemoApplication.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using DemoApplication.Models;
 using DemoApplication.Services.Interfaces;
 using DemoApplication.Exceptions;
 using DemoApplication.Models.ViewModels;
@@ -27,6 +22,7 @@ namespace DemoApplication.Controllers
         {
             return View("RegistrationForm", new UserViewModel());
         }
+        public ViewResult RegistrationForm(int userId) => View(new UserViewModel(_userRepository.Users.FirstOrDefault(_ => _.UserID == userId)));
         [HttpPost]
         public IActionResult RegistrationForm(UserViewModel userVM)
         {
@@ -51,7 +47,7 @@ namespace DemoApplication.Controllers
                 {
                     userVM.Errors.Add(ex.Message);
                 }
-                catch (Exception ex)
+                catch
                 {
                     userVM.Errors.Add("Что-то пошло не так. Наши разрабочики уже разбираются.");
                 }
@@ -81,6 +77,36 @@ namespace DemoApplication.Controllers
             else
                 return View(userVM);
         }
+        public ViewResult EditUser(int userId) => View(new EditUserViewModel(_userRepository.Users.FirstOrDefault(_ => _.UserID == userId)));
+        [HttpPost]
+        public IActionResult EditUser(EditUserViewModel editUserVM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = _userRepository.Users.FirstOrDefault(_ => _.UserID == editUserVM.UserID);
+                    if (user != null)
+                    {
+                        user.BirthDate = editUserVM.BirthDate;
+                        user.Email = editUserVM.Email;
+                        user.FullName = editUserVM.FullName;
+                        user.Phone = editUserVM.Phone;
+                        _userService.UpdateUser(user);
+                        return RedirectToAction("ListUser");
+                    }
+                }
+                catch (ValidationException ex)
+                {
+                    editUserVM.Errors.Add(ex.Message);
+                }
+                catch
+                {
+                    editUserVM.Errors.Add("Что-то пошло не так. Наши разрабочики уже разбираются.");
+                }
+            }
+            return View(editUserVM);
+        }
         [HttpPost]
         public IActionResult Delete(int userID)
         {
@@ -97,12 +123,5 @@ namespace DemoApplication.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        //[HttpGet]
-        //public ViewResult RegistrationForm()
-        //{
-        //    return View();
-        //}
-        public ViewResult RegistrationForm(int userId) => View(new UserViewModel(_userRepository.Users.FirstOrDefault(p => p.UserID == userId)));
-
     }
 }
